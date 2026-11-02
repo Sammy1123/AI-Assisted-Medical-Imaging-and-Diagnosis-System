@@ -1,0 +1,35 @@
+stages:
+  preprocess:
+    cmd: python backend/scripts/preprocess.py
+    deps:
+      - data/raw
+      - backend/app/core/preprocessing.py
+    outs:
+      - data/processed
+
+  train_classifier:
+    cmd: >
+      cd backend &&
+      python train.py --epochs 10 --batch_size 32 --lr 1e-4
+    deps:
+      - data/processed
+      - backend/app/models/classifier.py
+      - backend/app/core/dataset.py
+    outs:
+      - models/weights/best_model.pth
+    metrics:
+      - models/weights/metrics_classifier.json:
+          cache: false
+
+  train_segmentation:
+    cmd: >
+      cd backend &&
+      python train_segmentation.py --task Task09_Spleen --epochs 50
+    deps:
+      - data/raw/Task09_Spleen
+      - backend/app/models/segmentation.py
+    outs:
+      - models/weights/best_seg_model.pth
+    metrics:
+      - models/weights/metrics_segmentation.json:
+          cache: false

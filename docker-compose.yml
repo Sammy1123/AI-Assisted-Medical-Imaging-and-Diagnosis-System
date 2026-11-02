@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  orthanc:
+    image: orthancteam/orthanc:24.4.0
+    ports:
+      - "8042:8042"
+      - "4242:4242"
+    volumes:
+      - orthanc_data:/var/lib/orthanc/db
+    environment:
+      ORTHANC__AUTHENTICATION_ENABLED: "true"
+      ORTHANC__REGISTERED_USERS: '{"orthanc": "orthanc"}'
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/../data
+      - ./models:/app/../models
+      - ./audit_log.jsonl:/app/../audit_log.jsonl
+    environment:
+      - ORTHANC_URL=http://orthanc:8042
+      - ORTHANC_USER=orthanc
+      - ORTHANC_PASS=orthanc
+    depends_on:
+      - orthanc
+
+  orthanc_worker:
+    build: ./backend
+    command: python -m app.services.orthanc_worker
+    volumes:
+      - ./data:/app/../data
+      - ./models:/app/../models
+    environment:
+      - ORTHANC_URL=http://orthanc:8042
+      - ORTHANC_USER=orthanc
+      - ORTHANC_PASS=orthanc
+      - ORTHANC_POLL_INTERVAL=30
+    depends_on:
+      - orthanc
+      - backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+
+volumes:
+  orthanc_data:

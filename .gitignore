@@ -1,0 +1,54 @@
+# RSNA dataset — large files, tracked by DVC not git
+data/raw/stage_2_train_images/
+data/raw/stage_2_test_images/
+data/raw/stage_2_train_labels.csv
+data/raw/stage_2_detailed_class_info.csv
+data/raw/stage_2_sample_submission.csv
+data/raw/rsna-pneumonia-detection-challenge.zip
+data/raw/GCP Credits Request Link - RSNA.txt
+
+# Processed data and model weights — DVC tracked
+data/processed/
+models/weights/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Node
+node_modules/
+frontend/build/
+
+# Docker
+*.log
+
+# DVC
+.dvc/cache/
+.dvc/tmp/
+
+# Secrets
+.env
+*.pem
+*.key
+c:/Users/HP/.kaggle/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Audit log (runtime generated)
+audit_log.jsonl
