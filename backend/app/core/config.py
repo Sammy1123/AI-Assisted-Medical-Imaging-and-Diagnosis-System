@@ -2,8 +2,8 @@
 import os
 
 # Paths
-BASE_DIR   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # backend/
-ROOT_DIR   = os.path.dirname(BASE_DIR)                                    # project root
+BASE_DIR   = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # backend/
+ROOT_DIR   = os.path.dirname(BASE_DIR)                                                        # project root
 DATA_DIR   = os.path.join(ROOT_DIR, "data")
 MODEL_DIR  = os.path.join(ROOT_DIR, "models", "weights")                  # fixed path
 AUDIT_LOG_PATH = os.path.join(ROOT_DIR, "audit_log.jsonl")

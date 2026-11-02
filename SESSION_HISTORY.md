@@ -147,3 +147,33 @@ AI-Assisted Medical Imaging and Diagnosis System/
 ├── README.md (new)
 └── SESSION_HISTORY.md
 ```
+
+---
+
+## Session 3 — Environment Setup & First Run
+
+### Completed
+- Fixed `monai[all]` → `monai` (cucim not available on Windows)
+- Identified Python 3.10 vs 3.12 conflict — installed all packages to Python 3.10
+- Installed Node.js v26.13.0 (x64 MSI)
+- Fixed PowerShell execution policy issue — used CMD instead
+- Added Node.js to system environment variables PATH
+- Completed `npm install --legacy-peer-deps` successfully (1295 packages)
+- Fixed `DATA_DIR`/`MODEL_DIR` path — `config.py` had wrong number of `dirname()` calls
+- Backend running on port 8080 (8000 blocked by Windows)
+- Frontend running on port 3000
+- Both services verified working in browser
+
+### Errors Fixed
+| Error | Fix |
+|-------|-----|
+| `cucim` not found on Windows | Changed `monai[all]` to `monai` in requirements.txt |
+| `ModuleNotFoundError: monai` | Installed to correct Python 3.10 interpreter via `python -m pip` |
+| npm PowerShell execution policy | Used CMD instead of PowerShell |
+| `node not recognized` in npm scripts | Added `C:\Program Files\nodejs` to system PATH env variable |
+| Port 8000 access denied | Switched to port 8080 |
+| `FileNotFoundError: stage_2_train_labels.csv` | Fixed `BASE_DIR` in `config.py` — needed 3 `dirname()` calls not 2 |
+
+### Pending for Next Session
+- Run `python train.py --epochs 10 --batch_size 32 --lr 1e-4`
+- Test full predict → review → audit flow in browser
