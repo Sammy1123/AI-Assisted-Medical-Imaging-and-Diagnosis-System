@@ -5,6 +5,7 @@ data/raw/stage_2_train_labels.csv
 data/raw/stage_2_detailed_class_info.csv
 data/raw/stage_2_sample_submission.csv
 data/raw/rsna-pneumonia-detection-challenge.zip
+rsna-pneumonia-detection-challenge.zip
 data/raw/GCP Credits Request Link - RSNA.txt
 
 # Processed data and model weights — DVC tracked
