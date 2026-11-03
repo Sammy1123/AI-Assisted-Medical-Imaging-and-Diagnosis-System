@@ -177,3 +177,30 @@ AI-Assisted Medical Imaging and Diagnosis System/
 ### Pending for Next Session
 - Run `python train.py --epochs 10 --batch_size 32 --lr 1e-4`
 - Test full predict → review → audit flow in browser
+
+---
+
+## Session 4 — CUDA Setup & Training Start
+
+### Completed
+- Verified GTX 1650 GPU available via `nvidia-smi` (driver 610.74)
+- CUDA Toolkit installer failed — not needed, PyTorch bundles CUDA libraries
+- Installed `torch==2.3.0+cu121` and `torchvision==0.18.0+cu121` via PyTorch CUDA wheel
+- Verified CUDA working: `torch.cuda.is_available() = True`, GPU = NVIDIA GeForce GTX 1650
+- Started DenseNet-121 training on CUDA (`python train.py --epochs 10 --batch_size 32 --lr 1e-4`)
+- Training running in CMD — expected time ~20-30 mins on GTX 1650
+- Fixed VS Code terminal PATH by updating `.vscode/settings.json`
+  - Added Python 3.10 and Node.js to VS Code integrated terminal PATH
+  - `python` and `node` now work directly in VS Code terminal after restart
+
+### Key Notes
+- Project uses React (not Streamlit) — frontend runs via `npm start` on port 3000
+- No Streamlit needed — React handles all UI
+- Backend runs on port 8080 (8000 blocked by Windows)
+- CUDA install command: `pip install torch==2.3.0+cu121 torchvision==0.18.0+cu121 --index-url https://download.pytorch.org/whl/cu121`
+
+### Pending
+- [ ] Wait for training to complete → verify `models/weights/best_model.pth` created
+- [ ] Check AUC score after training (target ≥ 0.85)
+- [ ] Test `/api/predict` with a sample DICOM file
+- [ ] Test full browser flow: upload → Grad-CAM → approve/reject → audit log
