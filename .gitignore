@@ -53,3 +53,7 @@ Thumbs.db
 
 # Audit log (runtime generated)
 audit_log.jsonl
+
+# Local session notes
+SESSION_HISTORY.md
+TODO.md
