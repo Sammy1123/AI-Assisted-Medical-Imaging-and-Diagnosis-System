@@ -1,0 +1,18 @@
+{
+  "n_evaluated": 4002,
+  "positive_cases": 880,
+  "negative_cases": 3122,
+  "roc_auc": 0.9079,
+  "average_precision": 0.7499,
+  "accuracy@0.5": 0.8613,
+  "precision@0.5": 0.7081,
+  "recall@0.5": 0.6284,
+  "f1@0.5": 0.6659,
+  "threshold": 0.5,
+  "confusion_matrix": {
+    "TN": 2894,
+    "FP": 228,
+    "FN": 327,
+    "TP": 553
+  }
+}
