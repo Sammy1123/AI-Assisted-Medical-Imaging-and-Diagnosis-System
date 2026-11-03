@@ -4,6 +4,7 @@ Usage:
     python train.py --epochs 10 --batch_size 32 --lr 1e-4
 """
 import argparse
+import json
 import os
 import torch
 import torch.nn as nn
@@ -46,6 +47,7 @@ def train(epochs: int, batch_size: int, lr: float):
 
     os.makedirs(MODEL_DIR, exist_ok=True)
     best_auc = 0.0
+    history = []   # per-epoch metrics, persisted to train_history.json
 
     for epoch in range(1, epochs + 1):
         # --- Train ---
@@ -71,6 +73,11 @@ def train(epochs: int, batch_size: int, lr: float):
                 all_preds.extend(preds)
                 all_labels.extend(labels.numpy())
         auc = roc_auc_score(all_labels, all_preds)
+        history.append({
+            "epoch": epoch,
+            "train_loss": round(train_loss, 4),
+            "val_auc": round(float(auc), 4),
+        })
         print(f"Epoch {epoch}/{epochs}  loss={train_loss:.4f}  val_AUC={auc:.4f}")
 
         if auc > best_auc:
@@ -79,6 +86,14 @@ def train(epochs: int, batch_size: int, lr: float):
             print(f"  → Saved best model (AUC={best_auc:.4f})")
 
         scheduler.step()
+
+    with open(os.path.join(MODEL_DIR, "train_history.json"), "w") as f:
+        json.dump({
+            "config": {"epochs": epochs, "batch_size": batch_size, "lr": lr},
+            "best_auc": round(float(best_auc), 4),
+            "history": history,
+        }, f, indent=2)
+    print(f"History saved to {os.path.join(MODEL_DIR, 'train_history.json')}")
 
     print(f"Training complete. Best AUC: {best_auc:.4f}")
 
