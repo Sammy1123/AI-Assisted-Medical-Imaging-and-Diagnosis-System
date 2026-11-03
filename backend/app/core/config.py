@@ -16,6 +16,16 @@ MODEL_BACKBONE = "densenet121"
 # Inference thresholds
 POSITIVE_THRESHOLD = 0.5
 
+# CORS — restrict to local development by default.
+# Override with a comma-separated list in the CORS_ALLOW_ORIGINS env var for deployment.
+_env_origins = os.environ.get("CORS_ALLOW_ORIGINS", "")
+CORS_ALLOW_ORIGINS = [
+    o.strip() for o in _env_origins.split(",") if o.strip()
+] or [
+    "http://localhost:3000",      # React dev server
+    "http://127.0.0.1:3000",
+]
+
 # DISCLAIMER
 DISCLAIMER = (
     "FOR EDUCATION / RESEARCH ONLY — NOT FOR CLINICAL USE. "
