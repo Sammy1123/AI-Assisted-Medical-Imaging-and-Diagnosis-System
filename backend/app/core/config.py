@@ -14,7 +14,10 @@ NUM_CLASSES = 1          # binary: pneumonia vs normal
 MODEL_BACKBONE = "densenet121"
 
 # Inference thresholds
-POSITIVE_THRESHOLD = 0.5
+# 0.4 selected via validation threshold sweep (evaluation/threshold_sweep.json):
+# max F1 = 0.6842 (recall 0.723, precision 0.650) vs F1 0.6659 at 0.5.
+# Favours recall — appropriate for a screening-oriented demo.
+POSITIVE_THRESHOLD = 0.4
 
 # CORS — restrict to local development by default.
 # Override with a comma-separated list in the CORS_ALLOW_ORIGINS env var for deployment.

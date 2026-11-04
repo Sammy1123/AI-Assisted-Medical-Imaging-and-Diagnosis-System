@@ -1,0 +1,90 @@
+{
+  "rows": [
+    {
+      "threshold": 0.3,
+      "accuracy": 0.8346,
+      "precision": 0.5901,
+      "recall": 0.8114,
+      "f1": 0.6833,
+      "specificity": 0.8411,
+      "TP": 714,
+      "FP": 496,
+      "FN": 166,
+      "TN": 2626
+    },
+    {
+      "threshold": 0.35,
+      "accuracy": 0.8438,
+      "precision": 0.6184,
+      "recall": 0.7568,
+      "f1": 0.6806,
+      "specificity": 0.8684,
+      "TP": 666,
+      "FP": 411,
+      "FN": 214,
+      "TN": 2711
+    },
+    {
+      "threshold": 0.4,
+      "accuracy": 0.8533,
+      "precision": 0.6496,
+      "recall": 0.7227,
+      "f1": 0.6842,
+      "specificity": 0.8901,
+      "TP": 636,
+      "FP": 343,
+      "FN": 244,
+      "TN": 2779
+    },
+    {
+      "threshold": 0.45,
+      "accuracy": 0.8561,
+      "precision": 0.6712,
+      "recall": 0.6773,
+      "f1": 0.6742,
+      "specificity": 0.9065,
+      "TP": 596,
+      "FP": 292,
+      "FN": 284,
+      "TN": 2830
+    },
+    {
+      "threshold": 0.5,
+      "accuracy": 0.8613,
+      "precision": 0.7081,
+      "recall": 0.6284,
+      "f1": 0.6659,
+      "specificity": 0.927,
+      "TP": 553,
+      "FP": 228,
+      "FN": 327,
+      "TN": 2894
+    },
+    {
+      "threshold": 0.55,
+      "accuracy": 0.8623,
+      "precision": 0.732,
+      "recall": 0.5898,
+      "f1": 0.6532,
+      "specificity": 0.9391,
+      "TP": 519,
+      "FP": 190,
+      "FN": 361,
+      "TN": 2932
+    },
+    {
+      "threshold": 0.6,
+      "accuracy": 0.8643,
+      "precision": 0.767,
+      "recall": 0.55,
+      "f1": 0.6406,
+      "specificity": 0.9529,
+      "TP": 484,
+      "FP": 147,
+      "FN": 396,
+      "TN": 2975
+    }
+  ],
+  "recommended_threshold": 0.4,
+  "basis": "max F1"
+}
