@@ -4,6 +4,7 @@ Usage:
     python train_segmentation.py --task Task09_Spleen --epochs 50
 """
 import argparse
+import json
 import os
 import torch
 from torch.optim import Adam
@@ -76,6 +77,7 @@ def train(task: str, epochs: int, batch_size: int, lr: float):
 
     os.makedirs(MODEL_DIR, exist_ok=True)
     best_dice = 0.0
+    history = []   # per-epoch metrics, persisted to train_history_segmentation.json
 
     for epoch in range(1, epochs + 1):
         model.train()
@@ -96,6 +98,7 @@ def train(task: str, epochs: int, batch_size: int, lr: float):
 
         dice = metric.aggregate().item()
         metric.reset()
+        history.append({"epoch": epoch, "val_dice": round(float(dice), 4)})
         print(f"Epoch {epoch}/{epochs}  val_Dice={dice:.4f}")
 
         if dice > best_dice:
@@ -104,6 +107,14 @@ def train(task: str, epochs: int, batch_size: int, lr: float):
             print(f"  → Saved best segmentation model (Dice={best_dice:.4f})")
 
         scheduler.step()
+
+    with open(os.path.join(MODEL_DIR, "train_history_segmentation.json"), "w") as f:
+        json.dump({
+            "config": {"task": task, "epochs": epochs, "batch_size": batch_size, "lr": lr},
+            "best_dice": round(float(best_dice), 4),
+            "history": history,
+        }, f, indent=2)
+    print(f"History saved to {os.path.join(MODEL_DIR, 'train_history_segmentation.json')}")
 
     print(f"Training complete. Best Dice: {best_dice:.4f}")
 

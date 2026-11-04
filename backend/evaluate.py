@@ -36,7 +36,7 @@ from app.models.classifier import load_model
 EVAL_DIR = os.path.join(ROOT_DIR, "evaluation")
 
 
-def main(max_images: int):
+def main(max_images: int, batch_size: int = 32):
     os.makedirs(EVAL_DIR, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Evaluating on {device}")
@@ -47,6 +47,8 @@ def main(max_images: int):
     csv_path = os.path.join(DATA_DIR, "raw", "stage_2_train_labels.csv")
     img_dir = os.path.join(DATA_DIR, "raw", "stage_2_train_images")
 
+    # Subset of the full dataset holding only the validation indices, with a
+    # DataLoader for batched inference (decodes DICOMs in parallel workers).
     ds = RSNADataset(csv_path, img_dir, transform=get_val_transform(IMAGE_SIZE))
     # Same 15% validation split logic as train.py (seed 42 for reproducibility)
     n_val = int(0.15 * len(ds))
@@ -59,15 +61,19 @@ def main(max_images: int):
         val_indices = sorted(rng.choice(val_indices, size=max_images, replace=False).tolist())
     print(f"Validation images: {len(val_indices)}")
 
+    val_ds = torch.utils.data.Subset(ds, val_indices)
+    loader = torch.utils.data.DataLoader(
+        val_ds, batch_size=batch_size, shuffle=False, num_workers=4
+    )
+
     probs, labels, ids = [], [], []
     model.eval()
     with torch.no_grad():
-        for i in val_indices:
-            img, label, pid = ds[i]
-            p = model(img.unsqueeze(0).to(device)).item()
-            probs.append(p)
-            labels.append(label)
-            ids.append(pid)
+        for imgs, lbls, pids in loader:
+            logits = model(imgs.to(device))            # (B, 1)
+            probs.extend(logits.squeeze(1).cpu().tolist())
+            labels.extend(l for l in lbls)
+            ids.extend(pids)
     probs = np.array(probs)
     labels = np.array(labels, dtype=int)
 
@@ -150,5 +156,6 @@ def main(max_images: int):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--max_images", type=int, default=500, help="Cap validation images for speed (0 = all)")
+    parser.add_argument("--batch_size", type=int, default=32, help="Inference batch size")
     args = parser.parse_args()
-    main(args.max_images)
+    main(args.max_images, args.batch_size)
