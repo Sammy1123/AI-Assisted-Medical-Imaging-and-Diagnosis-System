@@ -3,4 +3,10 @@
     autostage = true
 
 [remote "myremote"]
-    url = s3://your-bucket-name/medical-imaging-dvc
+    url = D:/dvc-remote/medical-imaging
+# Default remote is a LOCAL directory (works with zero cloud setup).
+# For cloud storage, replace the url above, e.g.:
+#   s3://<bucket>/medical-imaging-dvc   (pip install "dvc[s3]")
+#   gs://<bucket>/medical-imaging-dvc   (pip install "dvc[gs]")
+#   gdrive://<folder-id>                (pip install "dvc[gdrive]")
+# then run: dvc push  (first push re-uploads everything to the new remote)

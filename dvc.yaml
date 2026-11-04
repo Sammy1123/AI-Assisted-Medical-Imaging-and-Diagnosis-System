@@ -33,3 +33,6 @@ stages:
     metrics:
       - models/weights/metrics_segmentation.json:
           cache: false
+  # Segmentation stage is dormant until the MSD Task09 dataset is downloaded.
+  # It stays in the DAG definition but is NOT run by default:
+  #   dvc repro train_segmentation   # run explicitly when data is present

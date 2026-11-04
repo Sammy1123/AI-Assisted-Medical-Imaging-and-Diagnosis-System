@@ -1,0 +1,27 @@
+schema: '2.0'
+stages:
+  train_classifier:
+    cmd: "cd backend && python train.py --epochs 10 --batch_size 32 --lr 1e-4\n"
+    deps:
+    - path: backend/app/core/dataset.py
+      hash: md5
+      md5: 41877075037cffb89bc6d10b09e62897
+      size: 997
+    - path: backend/app/models/classifier.py
+      hash: md5
+      md5: a95b1e72e1ecc30bace216a9322240da
+      size: 843
+    - path: data/processed
+      hash: md5
+      md5: d751713988987e9331980363e24189ce.dir
+      size: 0
+      nfiles: 0
+    outs:
+    - path: models/weights/best_model.pth
+      hash: md5
+      md5: bc5e49bceea6949127a4dbe56ea7fa0c
+      size: 28426389
+    - path: models/weights/metrics_classifier.json
+      hash: md5
+      md5: 8627f208d3439983c113d1d0b26a1dca
+      size: 315

@@ -1,0 +1,5 @@
+{
+  "best": { "val_auc": 0.9079 },
+  "last": { "epoch": 10, "train_loss": 0.0, "val_auc": 0.9079 },
+  "note": "Hand-written from the completed 10-epoch run (pre-dates the metrics patch). Full evaluation on the 4,002-image validation split: ROC AUC 0.9079, AP 0.7499. See evaluation/metrics.json and PROGRESS.md."
+}

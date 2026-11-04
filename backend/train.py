@@ -95,6 +95,13 @@ def train(epochs: int, batch_size: int, lr: float):
         }, f, indent=2)
     print(f"History saved to {os.path.join(MODEL_DIR, 'train_history.json')}")
 
+    # DVC metrics file (last epoch + best AUC) so `dvc exp show` / `dvc diff` work
+    with open(os.path.join(MODEL_DIR, "metrics_classifier.json"), "w") as f:
+        json.dump({
+            "best": {"val_auc": round(float(best_auc), 4)},
+            "last": history[-1] if history else None,
+        }, f, indent=2)
+
     print(f"Training complete. Best AUC: {best_auc:.4f}")
 
 

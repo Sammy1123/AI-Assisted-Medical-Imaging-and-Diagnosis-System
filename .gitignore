@@ -10,7 +10,9 @@ data/raw/GCP Credits Request Link - RSNA.txt
 
 # Processed data and model weights — DVC tracked
 data/processed/
-models/weights/
+models/weights/*
+!models/weights/.gitignore
+!models/weights/metrics_classifier.json
 
 # Python
 __pycache__/
