@@ -174,6 +174,7 @@ Operating-point sweep on the same 4,002-image validation split (`backend/thresho
 | 7   | 2026-11-03 | Threshold sweep across 0.30–0.60 → **POSITIVE_THRESHOLD 0.5 → 0.4** (max F1 0.6842, recall +15%); sweep script + data committed. |
 | 8   | 2026-11-03 | Removed demo-video item from scope (user decision). Full backend smoke test: `/predict` (HTTP 200, Grad-CAM overlay), `/review` (HTTP 200), `/audit` — all green against the live dev server on :8080. Threshold 0.4 verified active in config. |
 | 9   | 2026-11-04 | **Full frontend flow verified headlessly in Chromium**: upload DICOM → result panel (prob 0.1%, Normal) → Grad-CAM overlay rendered (1024×1024) → radiologist approve → "Decision recorded" → Audit Log page shows the new entry. Fixed stale dev proxy (8000→8080) and missing favicon (console now clean). |
+| 10  | 2026-11-04 | **DVC operational**: installed DVC 3.67.1; weight tracked via `train_classifier` stage; pushed to local remote `D:/dvc-remote/medical-imaging` (placeholder S3 replaced); checkout round-trip verified byte-identical; `metrics_classifier.json` added (+ train.py now writes it). Committed `dvc.lock` + pointers, pushed to GitHub. |
 
 ---
 
@@ -190,6 +191,6 @@ Operating-point sweep on the same 4,002-image validation split (`backend/thresho
 ## 5. Next Steps (priority order)
 
 1. Lower Grad-CAM threshold to a tuned operating point (e.g. 0.35) if recall matters more — current recall 0.6284 vs precision 0.7081. **DONE — threshold set to 0.4 via sweep (session 7).**
-2. Push `models/weights/` to a DVC remote (currently only local).
+2. ~~Push `models/weights/` to a DVC remote~~ **DONE (session 10)** — local remote `D:/dvc-remote/medical-imaging`; to move to cloud: edit `.dvc/config` url + `pip install "dvc[s3]"` + `dvc push`.
 3. Batched inference in `evaluate.py` (currently image-by-image; batching would cut eval time ~10x).
 4. Consider a second training run with the new `train_history.json` patch to capture the training curve for the report.
