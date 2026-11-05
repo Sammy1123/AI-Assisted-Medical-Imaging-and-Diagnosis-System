@@ -1,12 +1,14 @@
+/*
+ * Minimal Orthanc configuration for the Medical Imaging AI project.
+ * Run manually (no admin rights needed):
+ *   "C:\Program Files\Orthanc Server\Orthanc.exe" D:\orthanc-config.json
+ * (copy to a path without spaces - argument quoting with spaces is unreliable)
+ *
+ * Matches backend/app/services/orthanc_worker.py:
+ *   HTTP :8042, basic auth orthanc/orthanc (demo credentials only -
+ *   change before any non-local use).
+ */
 {
-  /**
-   * Minimal Orthanc configuration for the Medical Imaging AI project.
-   * Used to run Orthanc manually (no admin rights needed):
-   *   "C:\Program Files\Orthanc Server\Orthanc.exe" <path-to-this-file>
-   *
-   * Matches what backend/app/services/orthanc_worker.py expects:
-   *   HTTP on :8042, basic auth orthanc/orthanc.
-   */
   "Name": "MedicalImagingAI",
   "DicomAet": "MEDIMGAI",
   "DicomPort": 4242,

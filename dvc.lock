@@ -25,3 +25,25 @@ stages:
       hash: md5
       md5: 8627f208d3439983c113d1d0b26a1dca
       size: 315
+  train_segmentation:
+    cmd: "cd backend && python train_segmentation.py --task Task09_Spleen --epochs
+      50\n"
+    deps:
+    - path: backend/app/models/segmentation.py
+      hash: md5
+      md5: bc2d1cc19ebc96173d4096a74be52a0a
+      size: 892
+    - path: data/raw/Task09_Spleen
+      hash: md5
+      md5: 43b3c7f6999763812e71aa634277c2ae.dir
+      size: 1610157851
+      nfiles: 103
+    outs:
+    - path: models/weights/best_seg_model.pth
+      hash: md5
+      md5: 6b0c0696520d20a63275ea9e4ee9ce31
+      size: 19305906
+    - path: models/weights/train_history_segmentation.json
+      hash: md5
+      md5: 6bbe72de6c9841bc7702ad6d97a19295
+      size: 3796
