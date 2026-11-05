@@ -104,7 +104,7 @@ def train(task: str, epochs: int, batch_size: int, lr: float):
         if dice > best_dice:
             best_dice = dice
             torch.save(model.state_dict(), os.path.join(MODEL_DIR, "best_seg_model.pth"))
-            print(f"  → Saved best segmentation model (Dice={best_dice:.4f})")
+            print(f"  -> Saved best segmentation model (Dice={best_dice:.4f})")
 
         scheduler.step()
 

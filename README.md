@@ -90,13 +90,24 @@ docker-compose up --build
 # Backend
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8080
 
 # Frontend (separate terminal)
 cd frontend
-npm install
+set REACT_APP_API_URL=http://localhost:8080/api
 npm start
 ```
+
+### 4. Orthanc DICOM server (optional, native — no Docker required)
+
+Install the [Orthanc Windows installer](https://orthanc.uclouvain.be/downloads/windows-64/installers/index.html), then run with the project config:
+
+```cmd
+cd "C:\Program Files\Orthanc Server"
+Orthanc.exe D:\orthanc-config.json
+```
+
+(`D:\orthanc-config.json` — copy of `orthanc.json` at the project root, in a path without spaces.) HTTP :8042, basic auth `orthanc`/`orthanc`. Start the worker to auto-infer on new studies: `python -m app.services.orthanc_worker`.
 
 ---
 
