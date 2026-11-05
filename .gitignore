@@ -60,6 +60,10 @@ Thumbs.db
 # Audit log (runtime generated)
 audit_log.jsonl
 
+# Orthanc local data (runtime generated)
+orthanc-data/
+OrthancStorage/
+
 # Local session notes
 SESSION_HISTORY.md
 TODO.md
