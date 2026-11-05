@@ -193,7 +193,58 @@ Operating-point sweep on the same 4,002-image validation split (`backend/thresho
 
 ## 5. Next Steps (priority order)
 
-1. Lower Grad-CAM threshold to a tuned operating point (e.g. 0.35) if recall matters more — current recall 0.6284 vs precision 0.7081. **DONE — threshold set to 0.4 via sweep (session 7).**
+1. ~~Lower Grad-CAM threshold to a tuned operating point~~ **DONE — threshold 0.4 via sweep (session 7).**
 2. ~~Push `models/weights/` to a DVC remote~~ **DONE (session 10)** — local remote `D:/dvc-remote/medical-imaging`; to move to cloud: edit `.dvc/config` url + `pip install "dvc[s3]"` + `dvc push`.
-3. Batched inference in `evaluate.py` (currently image-by-image; batching would cut eval time ~10x).
-4. Consider a second training run with the new `train_history.json` patch to capture the training curve for the report.
+3. ~~Batched inference in `evaluate.py`~~ **DONE (session 10)** — ~15x faster, identical metrics.
+4. ~~Longer segmentation run~~ **DONE (session 13)** — 60 epochs → best Dice 0.7956.
+5. ~~Expose segmentation in the API~~ **DONE (session 13)** — `/api/segment` + React Segmentation page, verified.
+6. ~~Docker Desktop install + compose end-to-end test~~ — NOT PERFORMED: Docker Desktop is only partially installed on this machine (orphaned WSL distro, no app binaries). All compose services verified natively instead. If Docker is later installed, run `docker-compose up --build` as the final proof.
+
+---
+
+## 6. Commands Cheatsheet
+
+### Start Backend
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System\backend"
+py -m uvicorn main:app --reload --port 8080
+```
+
+### Start Frontend
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System\frontend"
+set REACT_APP_API_URL=http://localhost:8080/api
+npm start
+```
+
+### Run Classifier Training
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System\backend"
+python train.py --epochs 10 --batch_size 32 --lr 1e-4
+```
+
+### Run Segmentation Training
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System\backend"
+python train_segmentation.py --task Task09_Spleen --epochs 60 --batch_size 2 --lr 3e-4
+```
+
+### Evaluate / Threshold Sweep
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System\backend"
+python evaluate.py --max_images 0
+python threshold_sweep.py
+```
+
+### Orthanc (native, no Docker)
+```cmd
+cd "C:\Program Files\Orthanc Server"
+Orthanc.exe D:\orthanc-config.json
+```
+
+### DVC
+```cmd
+cd /d "d:\AI-Assisted Medical Imaging and Diagnosis System"
+python -m dvc push
+python -m dvc checkout
+```
