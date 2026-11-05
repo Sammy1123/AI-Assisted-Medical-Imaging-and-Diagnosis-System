@@ -1,6 +1,7 @@
 import React from "react";
 import Viewer from "./components/Viewer";
 import AuditLog from "./pages/AuditLog";
+import Segment from "./pages/Segment";
 
 export default function App() {
   const [page, setPage] = React.useState("viewer");
@@ -17,9 +18,13 @@ export default function App() {
           style={{ background: "none", border: "none", color: page === "audit" ? "#ffeb3b" : "#fff", cursor: "pointer", fontSize: 15 }}>
           Audit Log
         </button>
+        <button onClick={() => setPage("segment")}
+          style={{ background: "none", border: "none", color: page === "segment" ? "#ffeb3b" : "#fff", cursor: "pointer", fontSize: 15 }}>
+          Segmentation
+        </button>
       </nav>
       <div style={{ padding: 24 }}>
-        {page === "viewer" ? <Viewer /> : <AuditLog />}
+        {page === "viewer" ? <Viewer /> : page === "segment" ? <Segment /> : <AuditLog />}
       </div>
     </div>
   );
