@@ -176,6 +176,7 @@ Operating-point sweep on the same 4,002-image validation split (`backend/thresho
 | 9   | 2026-11-04 | **Full frontend flow verified headlessly in Chromium**: upload DICOM → result panel (prob 0.1%, Normal) → Grad-CAM overlay rendered (1024×1024) → radiologist approve → "Decision recorded" → Audit Log page shows the new entry. Fixed stale dev proxy (8000→8080) and missing favicon (console now clean). |
 | 10  | 2026-11-04 | **DVC operational**: installed DVC 3.67.1; weight tracked via `train_classifier` stage; pushed to local remote `D:/dvc-remote/medical-imaging` (placeholder S3 replaced); checkout round-trip verified byte-identical; `metrics_classifier.json` added (+ train.py now writes it). Committed `dvc.lock` + pointers, pushed to GitHub. |
 | 11  | 2026-11-04 | **All optional items done.** Batched inference in `evaluate.py` (4,002 imgs ~2 min, identical metrics). Orthanc installed natively (no Docker), custom config, auth enforced; worker processed a real DICOM end-to-end (result stored as tag 9999). Task09_Spleen fetched via MONAI (Kaggle mirror corrupt); segmentation trained 20 epochs → best Dice 0.0687, curve captured. README updated with native-Orthanc instructions. |
+| 12  | 2026-11-04 | **Repo hygiene final pass**: Task09_Spleen dataset paths gitignored (DVC policy); machine-specific `.vscode/` untracked and ignored; `package-lock.json` synced with the ajv audit fix and committed. Working tree now fully clean. |
 
 ---
 
