@@ -8,6 +8,11 @@ data/raw/rsna-pneumonia-detection-challenge.zip
 rsna-pneumonia-detection-challenge.zip
 data/raw/GCP Credits Request Link - RSNA.txt
 
+# MSD Task09_Spleen — DVC-tracked training data
+data/raw/._Task09_Spleen
+data/raw/Task09_Spleen.tar
+data/raw/Task09_Spleen/
+
 # Processed data and model weights — DVC tracked
 data/processed/
 models/weights/*
@@ -56,6 +61,9 @@ c:/Users/HP/.kaggle/
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor settings (machine-specific paths)
+.vscode/
 
 # Audit log (runtime generated)
 audit_log.jsonl

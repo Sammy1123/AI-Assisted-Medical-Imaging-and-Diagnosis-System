@@ -1,7 +1,0 @@
-{
-    "terminal.integrated.env.windows": {
-        "PATH": "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python310;C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python310\\Scripts;C:\\Program Files\\nodejs;${env:PATH}"
-    },
-    "python.defaultInterpreterPath": "C:\\Users\\HP\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
-    "python.terminal.activateEnvironment": false
-}
