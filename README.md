@@ -198,6 +198,7 @@ Full interactive docs at `http://localhost:8000/docs`
 - Trained on RSNA Pneumonia Detection Challenge data (US hospital demographics)
 - Not validated on paediatric, non-PA view, or non-chest X-ray images
 - Grad-CAM is an approximation — not a clinical-grade explanation
+- Segmentation model (3D U-Net, MSD Task09_Spleen): best validation Dice 0.7956 after 60 epochs — research-grade, not clinically validated; trained/evaluated only on abdominal CT from a single public dataset
 - **Not approved for clinical diagnosis under any regulatory framework**
 
 ---
